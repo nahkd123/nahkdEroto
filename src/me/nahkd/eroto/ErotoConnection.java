@@ -46,6 +46,10 @@ public abstract class ErotoConnection extends Thread {
 					break;
 				}
 				int length = (input.read() << 8) + input.read();
+				if (length <= -1) {
+					closed = true;
+					break;
+				}
 				offset = 0;
 				byte[] l = new byte[length];
 				while (offset < length) offset += input.read(l, offset, length - offset);
